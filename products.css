@@ -1,0 +1,48 @@
+@charset "utf-8";
+table {
+	background-color: #FFF;
+	margin-bottom: 10px;
+}
+.addtocart {
+	color: #000;
+	background-color: #FFF;
+	text-align: center;
+	width: 110px;
+	max-width: 400px;
+	margin-right: 10px;
+	font-size: 13px;
+	border: 2px solid #000;
+	border-radius: 3px;
+	padding-right: 6px;
+	padding-left: 6px;
+	padding-top: 8px;
+	padding-bottom: 6px;
+}
+.addtocart:hover {
+	background-color: #D4D4D4;
+}
+.selectvariant {
+	width: 100%;
+	border-radius: 3px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 2px solid #000;
+	background-color: #FFF;
+}
+
+table td {
+	width: 33%;
+	text-align: center;
+	font-size: 13px;
+}
+table img {
+	width: 100%;
+	height: auto;
+}
+ul {
+	text-align: left !important;
+}
+ul li {
+	text-align: left !important;
+	list-style-type: square !important;
+}

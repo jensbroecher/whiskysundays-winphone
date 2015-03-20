@@ -1,0 +1,180 @@
+<style type="text/css">
+#startcategories .startcategory {
+	background-color: #FFF;
+	height: 120px;
+	width: 100%;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	text-transform: uppercase;
+}
+.fctitle {
+	font-size: 12px;
+	color: #FFF;
+	background-color: #000;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 6px;
+	display: inline;
+	padding-right: 6px;
+	float: right;
+}
+.featuredheadline {
+	font-size: 14px;
+	color: #000;
+	background-color: #FFF;
+	text-align: center;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-transform: uppercase;
+}
+.fc1 {
+	background-image: url(featured/whiskyglas.jpg);
+}
+.fc2 {
+	background-image: url(featured/cigars.jpg);
+}
+.fc3 {
+	background-image: url(featured/accessories.jpg);
+}
+.searchfield {
+	border: solid 3px #fcb040;
+	background: none;
+	color: #fff;
+	font-size: 120%;
+	font-weight: lighter;
+	float: left;
+	width: 97%;
+	margin-top: 0px;
+	margin-right: 1%;
+	margin-bottom: 0px;
+	margin-left: 0;
+	padding-top: 3px;
+	padding-right: 1%;
+	padding-bottom: 3px;
+	padding-left: 1%;
+}
+.searchfieldgo {
+	border: solid 3px #fcb040;
+	background: none;
+	color: #fff;
+	font-size: 120%;
+	font-weight: lighter;
+	float: left;
+	width: 98%;
+	margin-top: 0px;
+	margin-right: 0;
+	margin-bottom: 0px;
+	margin-left: 0;
+	padding-top: 3px;
+	padding-right: 1%;
+	padding-bottom: 3px;
+	padding-left: 1%;
+	background-image: url(featured/search-icon.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: auto 80%;
+}
+</style>
+<br><br><br>
+
+<div id="searchfield">
+<form action="javascript:dosearch();">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top" width="83%"><input id="mainsearchfield" class="searchfield" type="text" placeholder="Search" /></td>
+    <td valign="top" width="4%">&nbsp;</td>
+    <td valign="top" width="13%"><input name="Button" type="button" class="searchfieldgo" id="searchfieldgo" onclick="dosearch();" value="" /></td>
+  </tr>
+  </table>
+</form>
+</div>
+
+<div class="featuredheadline">Featured Brands</div>
+
+<link rel="stylesheet" type="text/css" href="swipe.css" />
+<script type="text/javascript" src="swipe.js"></script>
+
+<div id="ibox7" class="info swipegallery animated fadeIn">
+<div id="slider" class="swipe">
+
+<ul id="featuredproductslist">
+<li onclick="$('#page').load('http://enunua.com/whiskysundays/load_searchproduct.php?searchterm=jameson',function(responseTxt,statusTxt,xhr){});location.href = '#SEARCH';"><img src="featured/p1.jpg">
+<span>JAMESON</span>
+</li>
+<li onclick="$('#page').load('http://enunua.com/whiskysundays/load_searchproduct.php?searchterm=chivas',function(responseTxt,statusTxt,xhr){});location.href = '#SEARCH';"><img src="featured/p2.jpg">
+<span>CHIVAS REGAL</span>
+</li>
+<li onclick="$('#page').load('http://enunua.com/whiskysundays/load_searchproduct.php?searchterm=absolut',function(responseTxt,statusTxt,xhr){});location.href = '#SEARCH';"><img src="featured/p3.jpg">
+<span>ABSOLUT VODKA</span>
+</li>
+<li onclick="$('#page').load('http://enunua.com/whiskysundays/load_searchproduct.php?searchterm=ballantine',function(responseTxt,statusTxt,xhr){});location.href = '#SEARCH';"><img src="featured/p4.jpg">
+<span>BALLANTINES</span>
+</li>
+<li onclick="$('#page').load('http://enunua.com/whiskysundays/load_searchproduct.php?searchterm=martell',function(responseTxt,statusTxt,xhr){});location.href = '#SEARCH';"><img src="featured/p5.jpg">
+<span>MARTELL</span>
+</li>
+</ul>
+
+<span id="position">
+
+<em>&#9679;</em><em>&#9679;</em><em>&#9679;</em><em>&#9679;</em><em>&#9679;</em>
+
+</span>
+
+</div></div>
+
+<div class="featuredheadline">Categories</div>
+
+<div id="startcategories">
+<div class="startcategory fc1" onclick="$('#page').load('drinks.html',function(responseTxt,statusTxt,xhr){});location.href = '#DRINKS';"><div class="fctitle">Drinks</div></div>
+<div class="startcategory fc2" onclick="alert('Coming soon...')">
+<div class="fctitle">Tobacco</div></div>
+<div class="startcategory fc3" onclick="alert('Coming soon...')">
+<div class="fctitle">Accessories</div></div>
+</div>
+
+
+<script>
+
+var slider = new Swipe(document.getElementById('slider'), {
+											    
+      callback: function(e, pos) {
+        
+        var i = bullets.length;
+        while (i--) {
+          bullets[i].className = ' ';
+        }
+        bullets[pos].className = 'on';
+
+      }
+	 
+    }),
+
+    bullets = document.getElementById('position').getElementsByTagName('em');
+
+function setTab(elem) {
+  for (var i = 0; i < selectors.length; i++) {
+    selectors[i].className = selectors[i].className.replace('on',' ');
+  }
+  elem.className += ' on';
+}
+
+var element = document.getElementById('position').getElementsByTagName('em')[0];  
+if(element) //lets sanitize this, shall we  
+{  
+element.setAttribute('class', 'on'); //other browsers
+}
+
+</script>
+
+<style type="text/css">
+.swipe img {
+width:100%;
+}
+</style>

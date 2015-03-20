@@ -1,0 +1,1477 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+<link href="main.css" rel="stylesheet" type="text/css">
+<link href="animate.min.css" rel="stylesheet" type="text/css">
+
+<script src="jquery.min.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+
+<script>
+
+function onDeviceReady() {
+
+}
+
+function dothisonload(){
+	
+navigator.geolocation.getCurrentPosition(disp);
+	
+	// alert('wurdegeladen');
+	
+	var customername = localStorage.getItem('customername');
+	var customeremail = localStorage.getItem('customeremail');
+	var customerphone = localStorage.getItem('customerphone');
+	var customerage = localStorage.getItem('customerage');
+	var customercomments = localStorage.getItem('customercomments');
+	var customeraddress = localStorage.getItem('customeraddress');
+	var customerdirections = localStorage.getItem('customerdirections');
+	
+	var customernamelength = customername.length;
+	
+	if (customernamelength > 2) {
+		alert('Good to see you again, '+customername+'');
+		
+		var whatdayselected = localStorage.getItem('day');
+		document.getElementById('AgegateDay').value=whatdayselected;
+		
+		var whatmonthselected = localStorage.getItem('month');
+		document.getElementById('AgegateMonth').value=whatmonthselected;
+		
+		var whatyearselected = localStorage.getItem('year');
+		document.getElementById('AgegateYear').value=whatyearselected;
+	}
+	
+	// alert(customername);
+	// alert(customeremail);
+	// alert(customerphone);
+	// alert(customerage);
+	// alert(customercomments);
+	// alert(customeraddress);
+	// alert(customerdirections);
+	
+	document.getElementById('customername').value = customername;
+	document.getElementById('customeremail').value = customeremail;
+	document.getElementById('customerphone').value = customerphone;
+	document.getElementById('customerage').value = customerage;
+	document.getElementById('customercomments').value = customercomments;
+	document.getElementById('customeraddress').value = customeraddress;
+	document.getElementById('customerdirections').value = customerdirections;
+
+}
+
+function clearall() {
+	document.getElementById('product1').innerHTML = '';
+	document.getElementById('size1').innerHTML = '';
+	document.getElementById('price1').innerHTML = '';
+	document.getElementById('quantity1').innerHTML = '';
+	
+	document.getElementById('product2').innerHTML = '';
+	document.getElementById('size2').innerHTML = '';
+	document.getElementById('price2').innerHTML = '';
+	document.getElementById('quantity2').innerHTML = '';
+	
+	document.getElementById('product3').innerHTML = '';
+	document.getElementById('size3').innerHTML = '';
+	document.getElementById('price3').innerHTML = '';
+	document.getElementById('quantity3').innerHTML = '';
+	
+	document.getElementById('product4').innerHTML = '';
+	document.getElementById('size4').innerHTML = '';
+	document.getElementById('price4').innerHTML = '';
+	document.getElementById('quantity4').innerHTML = '';
+
+	document.getElementById('product5').innerHTML = '';
+	document.getElementById('size5').innerHTML = '';
+	document.getElementById('price5').innerHTML = '';
+	document.getElementById('quantity5').innerHTML = '';
+	
+	document.getElementById('product6').innerHTML = '';
+	document.getElementById('size6').innerHTML = '';
+	document.getElementById('price6').innerHTML = '';
+	document.getElementById('quantity6').innerHTML = '';
+	
+	document.getElementById('product7').innerHTML = '';
+	document.getElementById('size7').innerHTML = '';
+	document.getElementById('price7').innerHTML = '';
+	document.getElementById('quantity7').innerHTML = '';
+	
+	document.getElementById('product8').innerHTML = '';
+	document.getElementById('size8').innerHTML = '';
+	document.getElementById('price8').innerHTML = '';
+	document.getElementById('quantity8').innerHTML = '';
+	
+	document.getElementById('product9').innerHTML = '';
+	document.getElementById('size9').innerHTML = '';
+	document.getElementById('price9').innerHTML = '';
+	document.getElementById('quantity9').innerHTML = '';
+	
+	document.getElementById('product10').innerHTML = '';
+	document.getElementById('size10').innerHTML = '';
+	document.getElementById('price10').innerHTML = '';
+	document.getElementById('quantity10').innerHTML = '';
+	
+	document.getElementById('totalammount').innerHTML = 0;
+	document.getElementById('totalammount2').innerHTML = 0;
+	document.getElementById('addedtocartnumber').innerHTML = 0;
+	
+	document.getElementById('productid1').innerHTML = '';
+	document.getElementById('productid2').innerHTML = '';
+	document.getElementById('productid3').innerHTML = '';
+	document.getElementById('productid4').innerHTML = '';
+	document.getElementById('productid5').innerHTML = '';
+	document.getElementById('productid6').innerHTML = '';
+	document.getElementById('productid7').innerHTML = '';
+	document.getElementById('productid8').innerHTML = '';
+	document.getElementById('productid9').innerHTML = '';
+	document.getElementById('productid10').innerHTML = '';
+}
+
+function clearcheckout() {
+	var closeit = confirm("Are you sure you want to clear your shopping cart?");
+if (closeit == true) {
+	
+  	 $("html, body").animate({ scrollTop: 0 }, "slow");
+	 
+	 window.localStorage.clear();
+	 clearall();
+	 
+	 document.getElementById('ordernowwindow').style.display='none';
+	 document.getElementById('opencartwindow').style.display='none';
+	 
+	 document.getElementById('mainholder').className = 'lessblur';
+	 
+	 document.getElementById('mainholder').style.display='block';
+	 
+	 // window.location.reload();
+	 
+} else {
+   
+}
+}
+
+function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 
+
+function opencartwindow() {
+var valuefrompromt = prompt("Quantity?", "1");
+while(valuefrompromt.length > 3){
+alert("Keep the length to 3 chars or less");
+valuefrompromt = prompt("Quantity?", "1");
+}
+if ((valuefrompromt != 0) && (isNumber (valuefrompromt))) {
+localStorage.setItem('numberofproducts',valuefrompromt);
+opencartwindow2();
+}
+else if (!isNumber (valuefrompromt)) {
+alert("Please enter a number");
+}
+}
+function openpreorderwindow() {
+notifyproduct = localStorage.getItem('product');
+notifyproductid = localStorage.getItem('productid');
+valuefrompromtname = prompt("Name?", "");
+if(!valuefrompromtname){
+   alert('Please enter your name');
+   return;
+ };
+valuefrompromtphone = prompt("Phone?", "");
+if(!valuefrompromtphone){
+   alert('Please enter your phone number');
+   return;
+ };
+valuefrompromtemail = prompt("E-Mail?", "");
+if(!valuefrompromtemail){
+   alert('Please enter your E-Mail');
+   return;
+ };
+
+xmlhttp=new XMLHttpRequest();
+xmlhttp.open("GET","http://enunua.com/whiskysundays/preorder.php?name=" + valuefrompromtname + "&phone=" + valuefrompromtphone + "&email=" + valuefrompromtemail + "&product=" + notifyproduct + "&productid=" + notifyproductid + "",true);
+xmlhttp.send();
+		
+alert('Thank you ' + valuefrompromtname + ', we will notifiy you when ' + notifyproduct + ' becomes available');
+
+}
+function opencartwindow2() {
+	
+var howmanycompare = localStorage.getItem('numberofproducts');
+var instock = localStorage.getItem('instock');
+	
+if (+howmanycompare > +instock) {
+alert("We do not have enough products in stock. Please order "+instock+" or less. Thank you");
+return;
+}
+	
+	$("html, body").animate({ scrollTop: 0 }, "slow");
+	
+	document.getElementById('mainholder').className = 'blur';
+	
+	document.getElementById('opencartwindow').style.display='block';
+	
+	document.getElementById('product').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size').innerHTML = localStorage.getItem('size');
+	document.getElementById('price').innerHTML = localStorage.getItem('price');
+	document.getElementById('howmany').innerHTML = localStorage.getItem('numberofproducts');
+	
+	var numberofproducts = localStorage.getItem('numberofproducts');
+	
+	var oldtotal = parseInt(document.getElementById('totalammount').innerHTML);
+	
+	var addtototal = parseInt(localStorage.getItem('price'));
+	
+	var currentotal = oldtotal + addtototal * numberofproducts;
+	
+	// alert(currentotal);
+	
+	document.getElementById('totalammount').innerHTML = currentotal;
+	document.getElementById('totalammount2').innerHTML = currentotal;
+	
+	var addedtocartnumber = document.getElementById('addedtocartnumber').innerHTML;
+	
+	scoreinbox1 = (addedtocartnumber*1+1); 
+	document.getElementById('addedtocartnumber').innerHTML=scoreinbox1;
+	
+	if(scoreinbox1 == 1){
+		
+	document.getElementById('product1').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid1').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size1').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price1').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity1').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+	
+	}
+	else if(scoreinbox1 == 2){
+		
+	document.getElementById('product2').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid2').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size2').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price2').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity2').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else if(scoreinbox1 == 3){
+		
+	document.getElementById('product3').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid3').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size3').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price3').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity3').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else if(scoreinbox1 == 4){
+		
+	document.getElementById('product4').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid4').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size4').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price4').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity4').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else if(scoreinbox1 == 5){
+		
+	document.getElementById('product5').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid5').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size5').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price5').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity5').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else if(scoreinbox1 == 6){
+		
+	document.getElementById('product6').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid6').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size6').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price6').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity6').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else if(scoreinbox1 == 7){
+		
+	document.getElementById('product7').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid7').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size7').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price7').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity7').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else if(scoreinbox1 == 8){
+		
+	document.getElementById('product8').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid8').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size8').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price8').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity8').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else if(scoreinbox1 == 9){
+		
+	document.getElementById('product9').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid9').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size9').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price9').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity9').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else if(scoreinbox1 == 10){
+		
+	document.getElementById('product10').innerHTML = localStorage.getItem('product');
+	document.getElementById('productid10').innerHTML = localStorage.getItem('productid');
+	document.getElementById('size10').innerHTML = localStorage.getItem('size')  + ' ML';
+	document.getElementById('price10').innerHTML = localStorage.getItem('price') + ' KES';
+	document.getElementById('quantity10').innerHTML = localStorage.getItem('numberofproducts') + 'x';
+
+	}
+	else {
+		alert('Maximum number of products reached. Please order now');
+		document.getElementById('addedtocartnumber').innerHTML=10;
+		document.getElementById('continueshoppingbuttononorder').style.display='none';
+	}
+	
+}
+
+function closecartwindow() {
+	
+	$("html, body").animate({ scrollTop: 0 }, "slow");
+	
+	document.getElementById('mainholder').className = 'lessblur';
+	
+	document.getElementById('opencartwindow').style.display='none';
+	
+	document.getElementById('continueshoppingbuttononorder').style.display='block';
+		
+}
+
+function openorderwindow() {
+	
+	$("html, body").animate({ scrollTop: 0 }, "slow");
+	
+	document.getElementById('ordernowwindow').style.display='block';
+	document.getElementById('mainholder').style.display='none';
+	
+	location.href = '#ORDER';
+	
+}
+function closeorderwindow() {
+	
+	$("html, body").animate({ scrollTop: 0 }, "slow");
+	
+	document.getElementById('ordernowwindow').style.display='none';
+	document.getElementById('opencartwindow').style.display='none';
+	
+	document.getElementById('mainholder').style.display='block';
+	
+	document.getElementById('mainholder').className = 'lessblur';
+	
+}
+
+$.ajaxSetup({
+    beforeSend:function(){
+        // show gif here, eg:
+        $("#loading").fadeIn();
+    },
+    complete:function(){
+        // hide gif here, eg:
+        $("#loading").fadeOut();
+    }
+});
+
+
+
+$( document ).ready(function() {
+
+	location.href = '#SPLASH';
+	
+	document.getElementById("customername").value = localStorage.getItem('customername');
+	document.getElementById("customeremail").value = localStorage.getItem('customeremail');
+	document.getElementById("customerphone").value = localStorage.getItem('customerphone');
+	document.getElementById("customerage").value = localStorage.getItem('customerage');
+	
+	// alert(localStorage.getItem('customername'));
+	
+	document.getElementById("chooseareainnairobi").onchange = function() {
+     localStorage['chooseareainnairobi'] = document.getElementById("chooseareainnairobi").value;
+    }
+    window.onload= function(){
+        if(localStorage['chooseareainnairobi'])
+            document.getElementById("chooseareainnairobi").value = localStorage['chooseareainnairobi'];
+    }
+
+ //  $('#mainmenu').on('change', function() {
+ // alert( this.value ); // or $(this).val()
+ // loadthis = this.value;
+ // ajaxload();
+ //});
+	
+	$( "#page" ).load("start.html");
+	
+	
+	
+});
+
+function warning(){
+            if(true){
+                return "Do you want to start over? You will lose your shopping cart contents!";
+                
+            }
+        }
+// window.onbeforeunload = warning;
+
+function ajaxload() {
+$( "#page" ).load(loadthis+".html");
+}
+
+function proceedwithorder1() {
+	var currentotal = document.getElementById('totalammount2').innerHTML;
+	var requiredtotal = 1000;
+	navigator.geolocation.getCurrentPosition(disp);
+	
+	if (+currentotal < requiredtotal) {
+        alert("Sorry, minimum order price not reached! Order for 1000 KES and above and enjoy free delivery.");
+        return false;
+    }
+	else {
+	document.getElementById('proceedwithorder1').style.display='block';
+	document.getElementById('pagebg').style.backgroundColor="white";
+	document.getElementById('ordernowwindow').style.display='none';
+	document.getElementById('opencartwindow').style.display='none';
+	document.getElementById('page').style.display='none';
+	}
+}
+function proceedwithorderformsubmit() {
+	var $myForm = $('#proceedorderform1')
+	if (!$myForm[0].checkValidity()) {
+    $myForm.find(':submit').click()
+	}
+}
+
+function disp(pos) {
+   $('.lat-view').html(pos.coords.latitude);
+   $('.long-view').html(pos.coords.longitude);
+}
+
+function ajaxorderform() {
+	
+	localStorage.removeItem('product');
+	localStorage.removeItem('productid');
+	localStorage.removeItem('size');
+	localStorage.removeItem('price');
+	
+	var e = document.getElementById("chooseareainnairobi");
+	var locationinnairobi = e.options[e.selectedIndex].text;
+	
+	var customername = document.getElementById("customername").value;
+	var customeremail = document.getElementById("customeremail").value;
+	var customerphone = document.getElementById("customerphone").value;
+	var customerage = document.getElementById("customerage").value;
+	var customercomments = document.getElementById("customercomments").value;
+	var customeraddress = document.getElementById("customeraddress").value;
+	var customerdirections = document.getElementById("customerdirections").value;
+	var latview = document.getElementById("lat-view").innerHTML;
+	var longview = document.getElementById("long-view").innerHTML;
+	var total = document.getElementById('totalammount2').innerHTML;
+	
+	var totalusd =  total / 87;
+	
+	var totalusdrounded = Math.round(totalusd);
+
+	localStorage.setItem('customername',customername);
+	localStorage.setItem('customeremail',customeremail);
+	localStorage.setItem('customerphone',customerphone);
+	localStorage.setItem('customerage',customerage);
+	localStorage.setItem('customercomments',customercomments);
+	localStorage.setItem('customeraddress',customeraddress);
+	localStorage.setItem('customerdirections',customerdirections);
+	localStorage.setItem('latview',latview);
+	localStorage.setItem('longview',longview);
+	localStorage.setItem('locationinnairobi',locationinnairobi);
+	
+	localStorage.setItem('total',total);
+	localStorage.setItem('totalusd',totalusdrounded);
+	
+	var product1 = document.getElementById('product1').innerHTML;
+	var size1 = document.getElementById('size1').innerHTML;
+	var price1 = document.getElementById('price1').innerHTML;
+	var quantity1 = document.getElementById('quantity1').innerHTML;
+	
+	localStorage.setItem('product1',product1);
+	localStorage.setItem('size1',size1);
+	localStorage.setItem('price1',price1);
+	localStorage.setItem('quantity1',quantity1);
+	
+	var product2 = document.getElementById('product2').innerHTML;
+	var size2 = document.getElementById('size2').innerHTML;
+	var price2 = document.getElementById('price2').innerHTML;
+	var quantity2 = document.getElementById('quantity2').innerHTML;
+	
+	localStorage.setItem('product2',product2);
+	localStorage.setItem('size2',size2);
+	localStorage.setItem('price2',price2);
+	localStorage.setItem('quantity2',quantity2);
+	
+	var product3 = document.getElementById('product3').innerHTML;
+	var size3 = document.getElementById('size3').innerHTML;
+	var price3 = document.getElementById('price3').innerHTML;
+	var quantity3 = document.getElementById('quantity3').innerHTML;
+	
+	localStorage.setItem('product3',product3);
+	localStorage.setItem('size3',size3);
+	localStorage.setItem('price3',price3);
+	localStorage.setItem('quantity3',quantity3);
+	
+	var product4 = document.getElementById('product4').innerHTML;
+	var size4 = document.getElementById('size4').innerHTML;
+	var price4 = document.getElementById('price4').innerHTML;
+	var quantity4 = document.getElementById('quantity4').innerHTML;
+	
+	localStorage.setItem('product4',product4);
+	localStorage.setItem('size4',size4);
+	localStorage.setItem('price4',price4);
+	localStorage.setItem('quantity4',quantity4);
+	
+	var product5 = document.getElementById('product5').innerHTML;
+	var size5 = document.getElementById('size5').innerHTML;
+	var price5 = document.getElementById('price5').innerHTML;
+	var quantity5 = document.getElementById('quantity5').innerHTML;
+
+	localStorage.setItem('product5',product5);
+	localStorage.setItem('size5',size5);
+	localStorage.setItem('price5',price5);
+	localStorage.setItem('quantity5',quantity5);
+	
+	var product6 = document.getElementById('product6').innerHTML;
+	var size6 = document.getElementById('size6').innerHTML;
+	var price6 = document.getElementById('price6').innerHTML;
+	var quantity6 = document.getElementById('quantity6').innerHTML;
+
+	localStorage.setItem('product6',product6);
+	localStorage.setItem('size6',size6);
+	localStorage.setItem('price6',price6);
+	localStorage.setItem('quantity6',quantity6);
+	
+	var product7 = document.getElementById('product7').innerHTML;
+	var size7 = document.getElementById('size7').innerHTML;
+	var price7 = document.getElementById('price7').innerHTML;
+	var quantity7 = document.getElementById('quantity7').innerHTML;
+
+	localStorage.setItem('product7',product7);
+	localStorage.setItem('size7',size7);
+	localStorage.setItem('price7',price7);
+	localStorage.setItem('quantity7',quantity7);
+	
+	var product8 = document.getElementById('product8').innerHTML;
+	var size8 = document.getElementById('size8').innerHTML;
+	var price8 = document.getElementById('price8').innerHTML;
+	var quantity8 = document.getElementById('quantity8').innerHTML;
+
+	localStorage.setItem('product8',product8);
+	localStorage.setItem('size8',size8);
+	localStorage.setItem('price8',price8);
+	localStorage.setItem('quantity8',quantity8);
+	
+	var product9 = document.getElementById('product9').innerHTML;
+	var size9 = document.getElementById('size9').innerHTML;
+	var price9 = document.getElementById('price9').innerHTML;
+	var quantity9 = document.getElementById('quantity9').innerHTML;
+	
+	localStorage.setItem('product9',product9);
+	localStorage.setItem('size9',size9);
+	localStorage.setItem('price9',price9);
+	localStorage.setItem('quantity9',quantity9);
+	
+	var product10 = document.getElementById('product10').innerHTML;
+	var size10 = document.getElementById('size10').innerHTML;
+	var price10 = document.getElementById('price10').innerHTML;
+	var quantity10 = document.getElementById('quantity10').innerHTML;
+	
+	localStorage.setItem('product10',product10);
+	localStorage.setItem('size10',size10);
+	localStorage.setItem('price10',price10);
+	localStorage.setItem('quantity10',quantity10);
+	
+	var productid1 = document.getElementById('productid1').innerHTML;
+	var productid2 = document.getElementById('productid2').innerHTML;
+	var productid3 = document.getElementById('productid3').innerHTML;
+	var productid4 = document.getElementById('productid4').innerHTML;
+	var productid5 = document.getElementById('productid5').innerHTML;
+	var productid6 = document.getElementById('productid6').innerHTML;
+	var productid7 = document.getElementById('productid7').innerHTML;
+	var productid8 = document.getElementById('productid8').innerHTML;
+	var productid9 = document.getElementById('productid9').innerHTML;
+	var productid10 = document.getElementById('productid10').innerHTML;
+	
+	localStorage.setItem('productid1',productid1);
+	localStorage.setItem('productid2',productid2);
+	localStorage.setItem('productid3',productid3);
+	localStorage.setItem('productid4',productid4);
+	localStorage.setItem('productid5',productid5);
+	localStorage.setItem('productid6',productid6);
+	localStorage.setItem('productid7',productid7);
+	localStorage.setItem('productid8',productid8);
+	localStorage.setItem('productid9',productid9);
+	localStorage.setItem('productid10',productid10);
+	
+	document.getElementById('choosepaymentoptions').style.display='block';
+	document.getElementById('proceedwithorder1').style.display='none';
+}
+function paystart() {
+	var payoption = localStorage.getItem('payoption');
+	
+	var customername = localStorage.getItem('customername');
+	var customeremail = localStorage.getItem('customeremail');
+	var customerphone = localStorage.getItem('customerphone');
+	var customerage = localStorage.getItem('customerage');
+
+	var customercomments = localStorage.getItem('customercomments');
+	var customeraddress = localStorage.getItem('customeraddress');
+	var customerdirections = localStorage.getItem('customerdirections');
+	
+	var locationinnairobi = localStorage.getItem('locationinnairobi');
+	var latview = localStorage.getItem('latview');
+	var longview = localStorage.getItem('longview');
+	var total = localStorage.getItem('total');
+	var totalusd = localStorage.getItem('totalusd');
+	
+	var product1 = localStorage.getItem('product1');
+	var size1 = localStorage.getItem('size1');
+	var price1 = localStorage.getItem('price1');
+	var quantity1 = localStorage.getItem('quantity1');
+	
+	var product2 = localStorage.getItem('product2');
+	var size2 = localStorage.getItem('size2');
+	var price2 = localStorage.getItem('price2');
+	var quantity2 = localStorage.getItem('quantity2');
+	
+	var product3 = localStorage.getItem('product3');
+	var size3 = localStorage.getItem('size3');
+	var price3 = localStorage.getItem('price3');
+	var quantity3 = localStorage.getItem('quantity3');
+	
+	var product4 = localStorage.getItem('product4');
+	var size4 = localStorage.getItem('size4');
+	var price4 = localStorage.getItem('price4');
+	var quantity4 = localStorage.getItem('quantity4');
+	
+	var product5 = localStorage.getItem('product5');
+	var size5 = localStorage.getItem('size5');
+	var price5 = localStorage.getItem('price5');
+	var quantity5 = localStorage.getItem('quantity5');
+	
+	var product6 = localStorage.getItem('product6');
+	var size6 = localStorage.getItem('size6');
+	var price6 = localStorage.getItem('price6');
+	var quantity6 = localStorage.getItem('quantity6');
+	
+	var product7 = localStorage.getItem('product7');
+	var size7 = localStorage.getItem('size7');
+	var price7 = localStorage.getItem('price7');
+	var quantity7 = localStorage.getItem('quantity7');
+	
+	var product8 = localStorage.getItem('product8');
+	var size8 = localStorage.getItem('size8');
+	var price8 = localStorage.getItem('price8');
+	var quantity8 = localStorage.getItem('quantity8');
+	
+	var product9 = localStorage.getItem('product9');
+	var size9 = localStorage.getItem('size9');
+	var price9 = localStorage.getItem('price9');
+	var quantity9 = localStorage.getItem('quantity9');
+	
+	var product10 = localStorage.getItem('product10');
+	var size10 = localStorage.getItem('size10');
+	var price10 = localStorage.getItem('price10');
+	var quantity10 = localStorage.getItem('quantity10');
+	
+	var productid1 = localStorage.getItem('productid1');
+	var productid2 = localStorage.getItem('productid2');
+	var productid3 = localStorage.getItem('productid3');
+	var productid4 = localStorage.getItem('productid4');
+	var productid5 = localStorage.getItem('productid5');
+	var productid6 = localStorage.getItem('productid6');
+	var productid7 = localStorage.getItem('productid7');
+	var productid8 = localStorage.getItem('productid8');
+	var productid9 = localStorage.getItem('productid9');
+	var productid10 = localStorage.getItem('productid10');
+		
+if  (payoption == 'paypal') {
+	
+var payconfirm = confirm("Pay using your PayPal balance, Visa, Mastercard or trough your Bank");
+if (payconfirm == true) {
+   
+} else {
+    return;
+}
+	
+	payserver ='gopaypal.php';
+	paytype ='PayPal';
+	data2server();
+	}
+if  (payoption == 'pesapal') {
+	
+var payconfirm = confirm("Pay using your PesaPal balance, Mobile Money or trough your Bank");
+if (payconfirm == true) {
+   
+} else {
+    return;
+}
+
+	payserver ='gopesapal.php';
+	paytype ='PesaPal';
+	data2server();
+	}
+if  (payoption == 'cod') {
+	
+var payconfirm = confirm("Please have the exact amount ready when your driver arrives");
+if (payconfirm == true) {
+   
+} else {
+    return;
+}
+
+	payserver ='gocod.php';
+	paytype ='Cash';
+	data2server();
+	}
+
+function data2server() {		
+window.location.href = 'http://enunua.com/whiskysundays/'+payserver+'?customername='+customername+'&customeremail='+customeremail+'&customerphone='+customerphone+'&customerage='+customerage+'&customercomments='+customercomments+'&customeraddress='+customeraddress+'&customerdirections='+customerdirections+'&locationinnairobi='+locationinnairobi+'&latview='+latview+'&longview='+longview+'&total='+total+'&totalusd='+totalusd+'&product1='+product1+'&product2='+product2+'&product3='+product3+'&product4='+product4+'&product5='+product5+'&product6='+product6+'&product7='+product7+'&product8='+product8+'&product9='+product9+'&product10='+product10+'&price1='+price1+'&price2='+price2+'&price3='+price3+'&price4='+price4+'&price5='+price5+'&price6='+price6+'&price7='+price7+'&price8='+price8+'&price9='+price9+'&price10='+price10+'&size1='+size1+'&size2='+size2+'&size3='+size3+'&size4='+size4+'&size5='+size5+'&size6='+size6+'&size7='+size7+'&size8='+size8+'&size9='+size9+'&size10='+size10+'&quantity1='+quantity1+'&quantity2='+quantity2+'&quantity3='+quantity3+'&quantity4='+quantity4+'&quantity5='+quantity5+'&quantity6='+quantity6+'&quantity7='+quantity7+'&quantity8='+quantity8+'&quantity9='+quantity9+'&quantity10='+quantity10+'&productid1='+productid1+'&productid2='+productid2+'&productid3='+productid3+'&productid4='+productid4+'&productid5='+productid5+'&productid6='+productid6+'&productid7='+productid7+'&productid8='+productid8+'&productid9='+productid9+'&productid10='+productid10+'&paytype='+paytype+'';}
+
+}
+
+function dosearch() {
+		var dosearch = document.getElementById('mainsearchfield').value;
+		
+		if (dosearch < 1) {
+		alert('Please enter a search term');	
+		return;
+		}
+		
+		var dosearch = encodeURI(dosearch);
+		
+		$('#page').load('http://enunua.com/whiskysundays/load_searchproduct.php?searchterm='+dosearch+'',function(responseTxt,statusTxt,xhr){});location.href = '#SEARCH';
+		
+	}
+</script>
+
+</head>
+
+<body id="pagebg" onLoad="dothisonload();">
+
+<div id="tnc" class="animated fadeIn">
+<iframe src="tnc.html" style="width:100%; height:300px;" frameborder="0"></iframe>
+<div class="opencartwindowbutton2" onClick="document.getElementById('tnc').style.display='none';">Close</div>
+</div>
+
+<div id="bottommenu">
+</div>
+
+<div id="splashstart" style="text-align:center; position:absolute; width:100%; height:100%; background-image: url(bgwhiskey.png); background-repeat: no-repeat; background-position: center top; background-size: cover !important; background-color:#000; z-index:1000;"><br>
+<img src="whiskey-sundays-logo-potrait.png" class="animated fadeIn" width="270" style="-webkit-animation-delay: 2s;">
+<div id="agecheck">
+
+  <div class="white uppercase huge animated fadeIn" style="-webkit-animation-delay: 2s;">we need to verify your age</div>
+        <div class="white uppercase medium animated fadeIn" style="-webkit-animation-delay: 2s;">it's just a part of our commitment to responsible drinking.</div>
+        <div class="spacer_medium"></div>
+
+<div id="agecheckboxes" class="animated fadeIn" style="-webkit-animation-delay: 2s;">
+<select class="datefield" id="AgegateDay">
+<option value="">DD</option>
+<option value="01">1</option>
+<option value="02">2</option>
+<option value="03">3</option>
+<option value="04">4</option>
+<option value="05">5</option>
+<option value="06">6</option>
+<option value="07">7</option>
+<option value="08">8</option>
+<option value="09">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>        
+<select class="datefield datefieldmid" id="AgegateMonth">
+<option value="">MM</option>
+<option value="01">January</option>
+<option value="02">February</option>
+<option value="03">March</option>
+<option value="04">April</option>
+<option value="05">May</option>
+<option value="06">June</option>
+<option value="07">July</option>
+<option value="08">August</option>
+<option value="09">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>        
+<select class="datefield" id="AgegateYear">
+<option value="">YYYY</option>
+<option value="2014">2014</option>
+<option value="2013">2013</option>
+<option value="2012">2012</option>
+<option value="2011">2011</option>
+<option value="2010">2010</option>
+<option value="2009">2009</option>
+<option value="2008">2008</option>
+<option value="2007">2007</option>
+<option value="2006">2006</option>
+<option value="2005">2005</option>
+<option value="2004">2004</option>
+<option value="2003">2003</option>
+<option value="2002">2002</option>
+<option value="2001">2001</option>
+<option value="2000">2000</option>
+<option value="1999">1999</option>
+<option value="1998">1998</option>
+<option value="1997">1997</option>
+<option value="1996">1996</option>
+<option value="1995">1995</option>
+<option value="1994">1994</option>
+<option value="1993">1993</option>
+<option value="1992">1992</option>
+<option value="1991">1991</option>
+<option value="1990">1990</option>
+<option value="1989">1989</option>
+<option value="1988">1988</option>
+<option value="1987">1987</option>
+<option value="1986">1986</option>
+<option value="1985">1985</option>
+<option value="1984">1984</option>
+<option value="1983">1983</option>
+<option value="1982">1982</option>
+<option value="1981">1981</option>
+<option value="1980">1980</option>
+<option value="1979">1979</option>
+<option value="1978">1978</option>
+<option value="1977">1977</option>
+<option value="1976">1976</option>
+<option value="1975">1975</option>
+<option value="1974">1974</option>
+<option value="1973">1973</option>
+<option value="1972">1972</option>
+<option value="1971">1971</option>
+<option value="1970">1970</option>
+<option value="1969">1969</option>
+<option value="1968">1968</option>
+<option value="1967">1967</option>
+<option value="1966">1966</option>
+<option value="1965">1965</option>
+<option value="1964">1964</option>
+<option value="1963">1963</option>
+<option value="1962">1962</option>
+<option value="1961">1961</option>
+<option value="1960">1960</option>
+<option value="1959">1959</option>
+<option value="1958">1958</option>
+<option value="1957">1957</option>
+<option value="1956">1956</option>
+<option value="1955">1955</option>
+<option value="1954">1954</option>
+<option value="1953">1953</option>
+<option value="1952">1952</option>
+<option value="1951">1951</option>
+<option value="1950">1950</option>
+<option value="1949">1949</option>
+<option value="1948">1948</option>
+<option value="1947">1947</option>
+<option value="1946">1946</option>
+<option value="1945">1945</option>
+<option value="1944">1944</option>
+<option value="1943">1943</option>
+<option value="1942">1942</option>
+<option value="1941">1941</option>
+<option value="1940">1940</option>
+<option value="1939">1939</option>
+<option value="1938">1938</option>
+<option value="1937">1937</option>
+<option value="1936">1936</option>
+<option value="1935">1935</option>
+<option value="1934">1934</option>
+<option value="1933">1933</option>
+<option value="1932">1932</option>
+<option value="1931">1931</option>
+<option value="1930">1930</option>
+<option value="1929">1929</option>
+<option value="1928">1928</option>
+<option value="1927">1927</option>
+<option value="1926">1926</option>
+<option value="1925">1925</option>
+<option value="1924">1924</option>
+<option value="1923">1923</option>
+<option value="1922">1922</option>
+<option value="1921">1921</option>
+<option value="1920">1920</option>
+</select>
+</div>
+</div>
+
+<div style="clear:both;"></div>
+
+<script>
+function agecheck() {
+	
+	var day = $('#AgegateDay option:selected').val()
+    var month = $('#AgegateMonth option:selected').val()
+    var year = $('#AgegateYear option:selected').val()
+    var age = 18;
+	
+	if(day=='') {
+	alert('Please select a day');return;
+	}
+	if(month=='') {
+	alert('Please select a month');return;
+	}
+	if(year=='') {
+	alert('Please select a year');return;
+	}
+	
+	localStorage.setItem('day',day);
+	localStorage.setItem('month',month);
+	localStorage.setItem('year',year);
+	
+    var mydate = new Date();
+    mydate.setFullYear(year, month-1, day);
+
+    var currdate = new Date();
+    var setDate = new Date();        
+    setDate.setFullYear(mydate.getFullYear() + age,month-1, day);
+
+if ((currdate - setDate) > 0){
+document.getElementById('splashstart').className = 'animated fadeOut';setTimeout(function(){
+document.getElementById('splashstart').style.display='none';},1000);
+document.getElementById('page').style.display='block';location.href = '#START';
+localStorage.setItem("agecheck", "yes");
+// lpush();
+}
+else {
+    alert("Sorry, you are below 18 years old");
+}
+}
+</script>
+
+<div id="selectdrink" class="animated fadeIn" onclick="agecheck();" style="-webkit-animation-delay: 2s;">Enter</div>
+
+<div id="splashsocial"><img class="animated bounceIn" style="-webkit-animation-delay: 3s;" onClick="navigator.app.loadUrl('https://www.facebook.com/whiskysundayske', {openexternal : true});" src="social_fb.png"><img class="animated bounceIn" style="-webkit-animation-delay: 3.1s;" onClick="navigator.app.loadUrl('https://twitter.com/whiskysundayske', {openexternal : true});" src="social_twitter.png"><img class="animated bounceIn" style="-webkit-animation-delay: 3.2s;" onClick="alert('Coming soon...')" src="social_instagram.png"><img class="animated bounceIn" style="-webkit-animation-delay: 3.3s;" onClick="alert('Coming soon...')" src="social_gplus.png"></div>
+
+<div id="warning" class="animated fadeIn" style="-webkit-animation-delay: 4s;" onClick="document.getElementById('tnc').style.display='block';scrolltop();">
+ PLEASE ENJOY ALCOHOL RESPONSIBLY.
+USE OF THIS APP IS FOR PERSONAL USE IN COUNTRIES WHERE THE CONSUMPTION OF ALCOHOL BEVERAGE IS LAWFUL, OF PERSONS WHO ARE LAWFULLY PERMITTED TO CONSUME ALCOHOLIC BEVERAGES. By using the app / website you accept our <span style="text-decoration:underline;">terms and conditions &amp; privacy policy</span>. WE SUPPORT RESPONSIBLE DECISION-MAKING. © 2015 Whisky Sundays Ltd. Developed by JTH Consulting Ltd.</div>
+
+</div>
+<div id="choosepaymentoptions" class="animated fadeIn">
+<h1 class="payoptionheadline">Pay using PesaPal</h1>
+<img class="paymentprovider" onClick="localStorage.setItem('payoption','pesapal');paystart();" src="paypesapal.png">
+<h1 class="payoptionheadline">Pay using PayPal</h1>
+<img class="paymentprovider" onClick="localStorage.setItem('payoption','paypal');paystart();" src="paypaypal.png">
+<h1 class="payoptionheadline">Cash on Delivery</h1>
+<img class="paymentprovider" onClick="localStorage.setItem('payoption','cod');paystart();" src="paycash.png">
+</div>
+
+<div id="devoptions">
+</div>
+
+<div id="loading">
+<div id="spinner"></div>
+</div>
+
+<div id="proceedwithorder1" class="animated fadeIn">
+<center>
+<div id="lat-view" style="display:none" class="lat-view"></div>
+<div id="long-view" style="display:none" class="long-view"></div>
+
+<form id="proceedorderform1" action="javascript:ajaxorderform();">
+
+<input style="margin-top:10px;" id="customername" required type="text" placeholder="Name">
+
+<input id="customeremail" required type="email" placeholder="E-Mail">
+
+<input id="customerphone" required type="tel" placeholder="Phone">
+
+<input id="customerage" required min="18" type="number" placeholder="Age">
+
+<input id="customeraddress" required type="text" placeholder="Address">
+
+<input id="customerdirections" type="text" placeholder="Directions">
+
+<input id="customercomments" type="text" placeholder="Special Instructions">
+
+<div class="notice">
+WHISKY SUNDAYS is currently only available in Nairobi. We are adding more locations soon.
+</div>
+
+<select id="chooseareainnairobi">
+  <option value="Unknown">Please select your location:</option>
+  <option value="Other">Other (Not in list)</option>
+  <option value="CBD">CBD (Town)</option>
+  <option value="Dagoretti">Dagoretti</option>
+  <option value="Donholm">Donholm</option>
+  <option value="Eastleigh">Eastleigh </option>
+  <option value="Embakasi">Embakasi </option>
+  <option value="Gigiri">Gigiri</option>
+  <option value="Highridge">Highridge</option>
+  <option value="Highrise">Highrise</option>
+  <option value="Hurlingham">Hurlingham</option>
+  <option value="Industrial Area">Industrial Area</option>
+  <option value="Jamhuri">Jamhuri</option>
+  <option value="Karen">Karen</option>
+  <option value="Karen Hardy">Karen Hardy</option>
+  <option value="Karen Miotoni">Karen Miotoni</option>
+  <option value="Karen Plains">Karen Plains</option>
+  <option value="Karen Windy Ridge">Karen Windy Ridge</option>
+  <option value="Kiambu">Kiambu</option>
+  <option value="Kassarani">Kassarani</option>
+  <option value="Kileleshwa">Kileleshwa</option>
+  <option value="Kilimani">Kilimani</option>
+  <option value="Kitusuru">Kitusuru</option>
+  <option value="Langata">Langata</option>
+  <option value="Lavington">Lavington</option>
+  <option value="Loresho">Loresho</option>
+  <option value="Lower Kabete">Lower Kabete</option>
+  <option value="Mombasa Road">Mombasa Road</option>
+  <option value="Muthaiga">Muthaiga</option>
+  <option value="New Muthaiga">New Muthaiga</option>
+  <option value="Old Muthaiga">Old Muthaiga</option>
+  <option value="Old Muthaiga">Sameer</option>
+  <option value="Old Muthaiga">Mugoya</option>
+  <option value="Nairobi West">Nairobi West</option>
+  <option value="Ngei">Ngei</option>
+  <option value="Ngong Road">Ngong Road</option>
+  <option value="Ngumo">Ngumo</option>
+  <option value="Nyari">Nyari</option>
+  <option value="Pangani">Pangani</option>
+  <option value="Parklands">Parklands</option>
+  <option value="Roselyn">Roselyn</option>
+  <option value="Runda">Runda</option>
+  <option value="South B">South B</option>
+  <option value="South C">South C</option>
+  <option value="Spring Valley">Spring Valley</option>
+  <option value="Thika Road">Thika Road</option>
+  <option value="Thome">Thome</option>
+  <option value="Upper Hill">Upper Hill</option>
+  <option value="Valley Arcade">Valley Arcade</option>
+  <option value="Westlands">Westlands</option>
+  <option value="Windsor">Windsor</option>
+  <option value="Woodley">Woodley</option>
+</select>
+
+<div style="clear:both"></div>
+
+<table id="tandc" align="center">
+<tr><td align="center" style="width:5% !important;" >
+
+    <input style="width:20px !important; height:20px !important; margin-top:10px;" required name="tandc" type="checkbox" value="tandc">
+
+</td>
+<td align="center">
+
+I have read and agreed to the <span onClick="document.getElementById('tnc').style.display='block';" style="text-decoration:underline;">Terms & Conditions</span>
+ 
+</td></tr></table>
+
+<button class="opencartwindowbutton"  onClick="proceedwithorderformsubmit();">Continue</button>
+<input style="display:none" id="proceedorderform1submit" name="Submit" type="submit" value="Submit">
+
+</form>
+
+<div style="clear:both"></div>
+
+</center>
+</div>
+
+<div id="ordernowwindow" class="animated gogo">
+<div class="titleincartwindow">Shopping Cart Summary:</div>
+
+<div id="summaryboxes">
+
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid1"></div>
+<div class="animated fadeIn andel1" id="product1"></div>
+<div class="animated fadeIn andel1"><span id="size1"></span> </div>
+<div class="animated fadeIn andel1"><span id="price1"></span> </div>
+<div class="animated fadeIn andel1" id="quantity1"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid2"></div>
+<div class="animated fadeIn andel2" id="product2"></div>
+<div class="animated fadeIn andel2"><span id="size2"></span> </div>
+<div class="animated fadeIn andel2"><span id="price2"></span> </div>
+<div class="animated fadeIn andel1" id="quantity2"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid3"></div>
+<div class="animated fadeIn andel3" id="product3"></div>
+<div class="animated fadeIn andel3"><span id="size3"></span> </div>
+<div class="animated fadeIn andel3"><span id="price3"></span> </div>
+<div class="animated fadeIn andel1" id="quantity3"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid4"></div>
+<div class="animated fadeIn andel4" id="product4"></div>
+<div class="animated fadeIn andel4"><span id="size4"></span> </div>
+<div class="animated fadeIn andel4"><span id="price4"></span> </div>
+<div class="animated fadeIn andel1" id="quantity4"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid5"></div>
+<div class="animated fadeIn andel5" id="product5"></div>
+<div class="animated fadeIn andel5"><span id="size5"></span> </div>
+<div class="animated fadeIn andel5"><span id="price5"></span> </div>
+<div class="animated fadeIn andel1" id="quantity5"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid6"></div>
+<div class="animated fadeIn andel6" id="product6"></div>
+<div class="animated fadeIn andel6"><span id="size6"></span> </div>
+<div class="animated fadeIn andel6"><span id="price6"></span> </div>
+<div class="animated fadeIn andel1" id="quantity6"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid7"></div>
+<div class="animated fadeIn andel7" id="product7"></div>
+<div class="animated fadeIn andel7"><span id="size7"></span> </div>
+<div class="animated fadeIn andel7"><span id="price7"></span> </div>
+<div class="animated fadeIn andel1" id="quantity7"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid8"></div>
+<div class="animated fadeIn andel8" id="product8"></div>
+<div class="animated fadeIn andel8"><span id="size8"></span> </div>
+<div class="animated fadeIn andel8"><span id="price8"></span> </div>
+<div class="animated fadeIn andel1" id="quantity8"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid9"></div>
+<div class="animated fadeIn andel9" id="product9"></div>
+<div class="animated fadeIn andel9"><span id="size9"></span> </div>
+<div class="animated fadeIn andel9"><span id="price9"></span> </div>
+<div class="animated fadeIn andel1" id="quantity9"></div>
+
+</td></tr></table>
+<table><tr><td>
+
+<div style="display:none;" class="animated fadeIn andel10" id="productid10"></div>
+<div class="animated fadeIn andel10" id="product10"></div>
+<div class="animated fadeIn andel10"><span id="size10"></span> </div>
+<div class="animated fadeIn andel10"><span id="price10"></span> </div>
+<div class="animated fadeIn andel1" id="quantity10"></div>
+
+</td></tr></table>
+
+
+</div>
+<div style="clear:both"></div>
+
+<div id="totalorder">Total: <span id="totalammount2">0</span> KES</div>
+
+<div style="clear:both"></div>
+
+<div class="opencartwindowbutton" onClick="proceedwithorder1();">Checkout</div>
+
+<div class="opencartwindowbutton2" onClick="clearcheckout();">Clear Shopping Cart</div>
+
+<div class="opencartwindowbutton2" onClick="closeorderwindow();">Continue Shopping</div>
+
+<div style="clear:both"></div>
+
+<br><br><br><br>
+
+</div>
+
+<div id="opencartwindow" class="animated gogo">
+<div class="titleincartwindow">Product added:</div>
+<div style="display:none;" class="listallproducts listproduct" id="productid"></div>
+<div class="listallproducts listproduct" id="product"></div>
+<div class="listproduct"><span id="size"></span> ML</div>
+<div class="listproduct"><span id="price"></span> KES</div>
+<div class="listproduct"><span id="howmany"></span>x</div>
+<br>
+<div class="titleincartwindow">Products in Cart: <span id="addedtocartnumber">0</span></div>
+
+<div id="summarycartwindow">Total: <span id="totalammount">0</span> KES</div>
+
+<div style="clear:both"></div>
+
+<div class="notice2">Free delivery on all orders!</div>
+
+<div class="opencartwindowbutton" onClick="openorderwindow();">Order now!</div>
+<div id="continueshoppingbuttononorder" class="opencartwindowbutton" onClick="closecartwindow();">Continue Shopping</div>
+</div>
+
+<div id="mainholder">
+
+<div id="navigation">
+
+<img src="logoinapp.png" onClick="$( '#mainmenu' ).val('start');location.href = '#START';">
+
+<select id="mainmenu" onchange="optionCheck()">
+<option value="start">Please select:</option>
+<option value="drinks">— DRINKS —</option>
+<option value="p1">WHISKIES</option>
+<option value="p2">COGNACS/BRANDY</option>
+<option value="p3">RUM</option>
+<option value="p5">TEQUILLAS/SHOOTERS</option>
+<option value="p6">APPERTIFFS/BITTERS</option>
+<option value="p7">LIQEURS</option>
+<option value="p8">WINES</option>
+<option value="p9">CHAMPAGNE</option>
+<option value="p10">GINS</option>
+<option value="p11">VODKAS</option>
+<option value="p12">MIXERS/SNACKS</option>
+<option value="tobacco">— TOBACCO —</option>
+<option value="p13">CIGARS</option>
+<option value="p14">CIGARETTES</option>
+<option value="p15">SHISHA</option>
+<option value="accessories">— ACCESSORIES —</option>
+<option value="p16">APPAREL</option>
+<option value="p17">BAR EQUIPMENT</option>
+
+</select>
+
+<script type="text/javascript">
+    function optionCheck(){
+		
+		var option = document.getElementById("mainmenu").value;
+				
+		if(option == "start"){
+           location.href = '#START';
+        }
+		if(option == "drinks"){
+           location.href = '#DRINKS';
+        }
+		if(option == "tobacco"){
+           location.href = '#TOBACCO';
+        }
+		if(option == "accessories"){
+           location.href = '#ACCESSORIES';
+        }
+        if(option == "p1"){
+            location.href = '#WHISKIES';
+        }
+		if(option == "p2"){
+            location.href = '#COGNACS';
+        }
+		if(option == "p3"){
+            location.href = '#RUM';
+        }
+		if(option == "p4"){
+            location.href = '#RUM';
+        }
+		if(option == "p5"){
+            location.href = '#TEQUILLAS';
+        }
+		if(option == "p6"){
+            location.href = '#APPERTIFFS';
+        }
+		if(option == "p7"){
+            location.href = '#LIQEURS';
+        }
+		if(option == "p8"){
+            location.href = '#WINES';
+        }
+		if(option == "p9"){
+            location.href = '#CHAMPAGNE';
+        }
+		if(option == "p10"){
+            location.href = '#GINS';
+        }
+		if(option == "p11"){
+            location.href = '#VODKAS';
+        }
+		if(option == "p12"){
+            location.href = '#MIXERS/SNACKS';
+        }
+		if(option == "p13"){
+            location.href = '#CIGARS';
+        }
+		if(option == "p14"){
+            location.href = '#CIGARETTES';
+        }
+		if(option == "p15"){
+            location.href = '#SHISHA';
+        }
+		if(option == "p16"){
+            location.href = '#APPAREL';
+        }
+		if(option == "p17"){
+            location.href = '#BAREQUIPMENT';
+        }
+
+		
+    }
+</script>
+</div>
+
+<div id="page" style="display:none">
+</div>
+
+</div>
+
+<script type="text/javascript">
+var hash = false; 
+checkHash();
+
+function checkHash(){ 
+    if(window.location.hash != hash) { 
+        hash = window.location.hash; 
+        processHash(hash); 
+    } t=setTimeout("checkHash()",200); 
+}
+
+function scrolltop() {
+	$("html, body").animate({ scrollTop: 0 }, "slow");
+}
+
+function processHash(hash){
+    // alert(hash);
+	if (hash == "#START") {
+		$( '#page' ).load('start.html');
+		$( '#mainmenu' ).val('start');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#SPLASH") {
+		document.getElementById('splashstart').style.display='block';
+		document.getElementById('splashstart').className = 'animated fadeIn';
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#DRINKS") {
+		$( '#page' ).load('drinks.html');
+		$( '#mainmenu' ).val('drinks');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#TOBACCO") {
+		$( '#page' ).load('tobacco.html');
+		$( '#mainmenu' ).val('tobacco');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#ACCESSORIES") {
+		$( '#page' ).load('accessories.html');
+		$( '#mainmenu' ).val('accessories');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#WHISKIES") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=1');
+		$( '#mainmenu' ).val('p1');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#COGNACS") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=3');
+		$( '#mainmenu' ).val('p2');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#RUM") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=4');
+		$( '#mainmenu' ).val('p3');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#TEQUILLAS") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=5');
+		$( '#mainmenu' ).val('p5');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#APPERTIFFS") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=6');
+		$( '#mainmenu' ).val('p6');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+		else if (hash == "#LIQEURS") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=13');
+		$( '#mainmenu' ).val('p7');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#WINES") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=7');
+		$( '#mainmenu' ).val('p8');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+		else if (hash == "#CHAMPAGNE") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=8');
+		$( '#mainmenu' ).val('p9');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#GINS") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=9');
+		$( '#mainmenu' ).val('p10');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#VODKAS") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=10');
+		$( '#mainmenu' ).val('p11');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#MIXERS/SNACKS") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=12');
+		$( '#mainmenu' ).val('p12');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#CIGARS") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=14');
+		$( '#mainmenu' ).val('p13');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#CIGARETTES") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=15');
+		$( '#mainmenu' ).val('p14');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#SHISHA") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=16');
+		$( '#mainmenu' ).val('p15');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#APPAREL") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=17');
+		$( '#mainmenu' ).val('p16');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else if (hash == "#BAREQUIPMENT") {
+		$( '#page' ).load('http://enunua.com/whiskysundays/load_mobile.php?categoryid=18');
+		$( '#mainmenu' ).val('p17');
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+}
+
+
+</script>
+
+</body>
+</html>
